@@ -27,6 +27,12 @@ import "./utils/passport.js";
 import config from "./utils/config.js";
 import cors from "cors"
 import { errorMiddleware } from "./middlewares/errors.middleware.js";
+
+import { swaggerSetup } from "./utils/swagger.js";
+import swaggerUi from "swagger-ui-express";
+
+
+
 //configuracion del servidor
 const app = express();
 
@@ -62,6 +68,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/tickets", ticketsRouter);
 app.use("/api/messages",messagesRouter);
 app.use("/", viewsRouter);
+app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
 app.use(errorMiddleware);
 
